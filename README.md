@@ -1,5 +1,5 @@
 # Trabalhos para disciplina de Lógica e Matemática Discreta
-Faculdade de Engenharia Elétrica
+Faculdade de Engenharia Elétrica\n
 Universidade Federal de Uberlândia
 
 ## Autor
