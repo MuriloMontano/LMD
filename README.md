@@ -33,7 +33,7 @@ $ sudo apt install maven
 ```
 
 ## Execução:
-Para instalar as dependências, use o comando:
+Instale as dependências, através do comando:
 ```
 $ mvn install
 ```
