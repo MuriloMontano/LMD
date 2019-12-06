@@ -1,0 +1,26 @@
+graph {
+	fill-color: white;
+}
+
+node {	
+	size: 40px;
+	fill-color: #BBCCDD, #8F99A3;
+	fill-mode: gradient-horizontal;
+	stroke-mode: plain;
+	stroke-color: #43474C;
+	stroke-width: 2px;
+	text-style: bold;
+}
+
+edge {
+	size: 4px;
+	fill-color: #43474C;
+}
+
+node.marked {
+	fill-color: #E33535;
+}
+
+node:clicked {
+	fill-color: #43474C;
+}
