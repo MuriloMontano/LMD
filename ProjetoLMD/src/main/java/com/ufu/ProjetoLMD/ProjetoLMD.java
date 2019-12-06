@@ -58,7 +58,7 @@ public class ProjetoLMD implements ViewerListener {
             node.addAttribute("ui.label", node.getId());
         }
 
-		viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+		viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
 
 		ViewerPipe fromViewer = viewer.newViewerPipe();
 		fromViewer.addViewerListener(this);
@@ -74,13 +74,10 @@ public class ProjetoLMD implements ViewerListener {
 	}
 
 	public void buttonPushed(String id) {
-		System.out.println("Button pushed on node "+id);
 		clearGraph();
 	}
 
-	public void buttonReleased(String id) {
-		System.out.println("Button released on node "+id);
-		
+	public void buttonReleased(String id) {		
 		String ordemBusca;
 		
 		Object[] options = { "Busca em Largura", "Busca em Altura", "Cancelar" };
@@ -93,8 +90,6 @@ public class ProjetoLMD implements ViewerListener {
                 JOptionPane.YES_NO_CANCEL_OPTION, 
                 JOptionPane.PLAIN_MESSAGE,
                 null, options, null);
-		
-		System.out.println(result);
 		
 		switch (result) {
 		case 0:
@@ -135,7 +130,7 @@ public class ProjetoLMD implements ViewerListener {
         while (nodeIterator.hasNext()) {
             Node nextNode = nodeIterator.next();
             nextNode.setAttribute("ui.class", "marked");
-            ordemBusca += " " + nextNode.getId();
+            ordemBusca += nextNode.getId() + " ";
             sleep();
         }
         
