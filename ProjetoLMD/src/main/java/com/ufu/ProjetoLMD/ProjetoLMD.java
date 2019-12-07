@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.graphstream.algorithm.generator.Generator;
+import org.graphstream.algorithm.generator.RandomGenerator;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -22,43 +24,23 @@ public class ProjetoLMD implements ViewerListener {
 	}
 	public ProjetoLMD() {			
 		System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+		graph.setAttribute("ui.stylesheet", "url('https://projetolmd.s3.amazonaws.com/style.css')");
         graph.addAttribute("ui.quality");
-        graph.addAttribute("ui.antialias");       
-        graph.setAttribute("ui.stylesheet", "url('https://projetolmd.s3.amazonaws.com/style.css')");
+        graph.addAttribute("ui.antialias");             
+        
         graph.setAutoCreate(true);
         graph.setStrict(false);
+        
 		Viewer viewer = graph.display();
 		
-		graph.addEdge("AB", "A", "B");
-        graph.addEdge("AC", "A", "C");
-        graph.addEdge("AD", "A", "D");
-        graph.addEdge("AE", "A", "E");
-        
-        graph.addEdge("BC", "B", "C");
-        graph.addEdge("BE", "B", "E");
-        
-        graph.addEdge("CD", "C", "D");
-        graph.addEdge("CH", "C", "H");
-        graph.addEdge("CI", "C", "I");			               
-   
-        graph.addEdge("DE", "D", "E");			                
-        graph.addEdge("DF", "D", "F");
-        graph.addEdge("DG", "D", "G");
-        graph.addEdge("DH", "D", "H");
-        
-        graph.addEdge("FE", "F", "E");			                
-        graph.addEdge("FG", "F", "G");
-        			                	                
-        graph.addEdge("GH", "G", "H");
-        graph.addEdge("GI", "G", "I");			                
-        
-        graph.addEdge("HI", "H", "I");	
+		viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
+	
+		preBuiltGraph();
+//		randomGraph(4, 15);
         
         for (Node node : graph) {
             node.addAttribute("ui.label", node.getId());
         }
-
-		viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
 
 		ViewerPipe fromViewer = viewer.newViewerPipe();
 		fromViewer.addViewerListener(this);
@@ -93,33 +75,35 @@ public class ProjetoLMD implements ViewerListener {
 		
 		switch (result) {
 		case 0:
-			ordemBusca = explore(graph.getNode(id), 0);
+			ordemBusca = explore(graph.getNode(id), 'B');
 			break;
 			
 		case 1:
-			ordemBusca = explore(graph.getNode(id), 1);
+			ordemBusca = explore(graph.getNode(id), 'D');
 			break;
 			
 		default:
 			return;
 		}
 		
-		JOptionPane.showMessageDialog(null, "A ordem de busca no grafo foi:\n" + ordemBusca);
+		JOptionPane.showMessageDialog(
+				null, "A ordem percorrida no grafo foi:\n" + ordemBusca,
+				"Resultado", JOptionPane.PLAIN_MESSAGE);
 		clearGraph();
 	}
 	
-	public String explore(Node source, int operation) {	
+	public String explore(Node source, char operation) {	
 		
 		String ordemBusca = "";
 		
 		Iterator<? extends Node> nodeIterator;
 		
 		switch (operation) {
-		case 0:
+		case 'B':
 			nodeIterator = source.getBreadthFirstIterator();
 			break;
 
-		case 1: 
+		case 'D': 
 			nodeIterator = source.getDepthFirstIterator();
 			break;
 			
@@ -145,5 +129,58 @@ public class ProjetoLMD implements ViewerListener {
 		for(Node node : graph) {
 			node.setAttribute("ui.class", "");
 		}
+	}
+	
+	public void randomGraph(int averageDegree, int amountOfNodes) {
+		Generator gen = new RandomGenerator(averageDegree);
+	    gen.addSink(graph);
+	    gen.begin();
+	    for(int i=0; i<amountOfNodes; i++)
+	        gen.nextEvents();
+	    gen.end();
+	}
+	
+	public void preBuiltGraph() {
+		graph.addEdge("AB", "A", "B");
+		graph.addEdge("AC", "A", "C");
+		graph.addEdge("AE", "A", "E");
+		
+		graph.addEdge("BC", "B", "C");
+		graph.addEdge("BJ", "B", "J");
+		
+		graph.addEdge("CD", "C", "D");
+		graph.addEdge("CI", "C", "I");
+		
+		graph.addEdge("DE", "D", "E");
+		graph.addEdge("DG", "D", "G");
+		graph.addEdge("DH", "D", "H");
+		
+		graph.addEdge("EF", "E", "F");
+		
+		graph.addEdge("FG", "F", "G");
+		
+		graph.addEdge("GH", "G", "H");
+		graph.addEdge("GO", "G", "O");
+		
+		graph.addEdge("HI", "H", "I");
+		graph.addEdge("HL", "H", "L");
+		graph.addEdge("HN", "H", "N");
+		graph.addEdge("HO", "H", "O");
+		
+		graph.addEdge("IJ", "I", "J");
+		graph.addEdge("IL", "I", "L");
+		
+		graph.addEdge("JK", "J", "K");
+		graph.addEdge("JL", "J", "L");
+		
+		graph.addEdge("KL", "K", "L");
+		graph.addEdge("KM", "K", "M");
+		
+		graph.addEdge("LM", "L", "M");
+		graph.addEdge("LN", "L", "N");
+		
+		graph.addEdge("MN", "M", "N");
+		
+		graph.addEdge("NO", "N", "O");
 	}
 }
