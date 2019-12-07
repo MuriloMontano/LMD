@@ -37,7 +37,7 @@ public class ProjetoLMD implements ViewerListener {
 		viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
 
 		preBuiltGraph();
-		//		randomGraph(4, 15);
+//		randomGraph(4, 15);
 
 		for (Node node : graph) {
 			node.addAttribute("ui.label", node.getId());
