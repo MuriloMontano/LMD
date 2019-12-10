@@ -30,8 +30,8 @@ public class ProjetoLMD implements ViewerListener {
 		graph.addAttribute("ui.antialias");             
 
 		graph.setAutoCreate(true);
-		graph.setStrict(false);
-
+		graph.setStrict(false);		
+		
 		Viewer viewer = graph.display();
 
 		viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
@@ -63,7 +63,7 @@ public class ProjetoLMD implements ViewerListener {
 	public void buttonReleased(String id) {		
 		String ordemBusca;
 
-		Object[] options = { "Busca em Largura", "Busca em Altura", "Cancelar" };
+		Object[] options = { "Busca em Largura", "Busca em Profundidade", "Cancelar" };
 
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("Escolha o tipo de busca desejada"));
