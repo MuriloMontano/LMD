@@ -1,5 +1,6 @@
 package com.ufu.ProjetoLMD;
 
+import java.net.URL;
 import java.util.Iterator;
 
 import javax.swing.JLabel;
@@ -24,8 +25,10 @@ public class ProjetoLMD implements ViewerListener {
 	}
 	
 	public ProjetoLMD() {			
+		URL styleURL = getClass().getResource("style.css");
+		
 		System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
-		graph.setAttribute("ui.stylesheet", "url('https://projetolmd.s3.amazonaws.com/style.css')");
+		graph.setAttribute("ui.stylesheet", "url('" + styleURL + "')");
 		graph.addAttribute("ui.quality");
 		graph.addAttribute("ui.antialias");             
 
